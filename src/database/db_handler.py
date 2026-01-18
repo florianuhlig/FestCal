@@ -34,12 +34,18 @@ class DatabaseHandler:
 
     def add_event(self, event: Event) -> None:
         """Add or update an event in the database."""
+        # Fields to update (excluding id and timestamps)
+        update_fields = [
+            "title", "description", "start_datetime", "end_datetime",
+            "location", "address", "city", "postal_code",
+            "latitude", "longitude", "category", "organizer",
+            "url", "image_url", "price", "source"
+        ]
         with self.get_session() as session:
             existing = session.query(Event).filter_by(id=event.id).first()
             if existing:
-                for key, value in event.to_dict().items():
-                    if key not in ("id", "created_at"):
-                        setattr(existing, key, value)
+                for field in update_fields:
+                    setattr(existing, field, getattr(event, field))
                 existing.updated_at = datetime.utcnow()
             else:
                 session.add(event)
@@ -48,13 +54,19 @@ class DatabaseHandler:
     def add_events(self, events: list[Event]) -> int:
         """Add multiple events to the database. Returns count of added events."""
         count = 0
+        # Fields to update (excluding id and timestamps)
+        update_fields = [
+            "title", "description", "start_datetime", "end_datetime",
+            "location", "address", "city", "postal_code",
+            "latitude", "longitude", "category", "organizer",
+            "url", "image_url", "price", "source"
+        ]
         with self.get_session() as session:
             for event in events:
                 existing = session.query(Event).filter_by(id=event.id).first()
                 if existing:
-                    for key, value in event.to_dict().items():
-                        if key not in ("id", "created_at"):
-                            setattr(existing, key, value)
+                    for field in update_fields:
+                        setattr(existing, field, getattr(event, field))
                     existing.updated_at = datetime.utcnow()
                 else:
                     session.add(event)

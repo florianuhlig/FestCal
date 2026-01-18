@@ -1,6 +1,6 @@
 sources:
-  - name: "Frankfurt Tourismus"
-    url: "https://www.frankfurt-tourismus.de/events"
+  - name: "Frankfurter Stadtevents"
+    url: "https://www.frankfurter-stadtevents.de/datum.html"
     type: "web"
     scraper: "frankfurt_scraper"
     enabled: true
