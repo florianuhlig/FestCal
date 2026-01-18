@@ -3,6 +3,12 @@ name: Review
 on:
     push:
         branches: [review]
+        paths:
+            - "src/**"
+            - "tests/**"
+            - "requirements.txt"
+            - "pyproject.toml"
+            - "config/**"
 
 permissions:
     contents: write
@@ -59,3 +65,8 @@ jobs:
                     git checkout -b testing
                   fi
                   git push origin testing
+
+    run-tests:
+        name: Run Tests
+        needs: merge-to-testing
+        uses: ./.github/workflows/testing.yml
