@@ -4,6 +4,9 @@ on:
     push:
         branches: [review]
 
+permissions:
+    contents: write
+
 jobs:
     lint:
         name: Lint & Format Check
