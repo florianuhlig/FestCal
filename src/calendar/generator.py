@@ -71,8 +71,6 @@ class CalendarGenerator:
         if event.organizer:
             ical_event.add("organizer", event.organizer)
 
-        if event.latitude and event.longitude:
-            ical_event.add("geo", (event.latitude, event.longitude))
 
         ical_event.add("dtstamp", datetime.utcnow())
 

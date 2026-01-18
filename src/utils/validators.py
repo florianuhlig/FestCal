@@ -64,14 +64,6 @@ def validate_event(event: Event, strict: bool = False) -> list[ValidationError]:
         except Exception:
             errors.append(ValidationError("image_url", "Invalid image URL format"))
 
-    # Coordinate validation
-    if event.latitude is not None:
-        if not -90 <= event.latitude <= 90:
-            errors.append(ValidationError("latitude", "Latitude must be between -90 and 90"))
-
-    if event.longitude is not None:
-        if not -180 <= event.longitude <= 180:
-            errors.append(ValidationError("longitude", "Longitude must be between -180 and 180"))
 
     # Postal code validation (German format)
     if event.postal_code and strict:

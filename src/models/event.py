@@ -22,8 +22,6 @@ class Event(Base):
     address = Column(String(500))
     city = Column(String(100))
     postal_code = Column(String(20))
-    latitude = Column(Float)
-    longitude = Column(Float)
     category = Column(String(100))
     organizer = Column(String(255))
     url = Column(String(1000))
@@ -48,8 +46,6 @@ class Event(Base):
             "address": self.address,
             "city": self.city,
             "postal_code": self.postal_code,
-            "latitude": self.latitude,
-            "longitude": self.longitude,
             "category": self.category,
             "organizer": self.organizer,
             "url": self.url,
