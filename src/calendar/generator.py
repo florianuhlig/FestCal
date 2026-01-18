@@ -74,12 +74,6 @@ class CalendarGenerator:
 
         ical_event.add("dtstamp", datetime.utcnow())
 
-        if event.created_at:
-            ical_event.add("created", event.created_at)
-
-        if event.updated_at:
-            ical_event.add("last-modified", event.updated_at)
-
         return ical_event
 
     def export_to_file(

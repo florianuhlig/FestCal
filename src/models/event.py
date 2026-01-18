@@ -1,7 +1,5 @@
 """Event data model."""
 
-from datetime import datetime
-
 from sqlalchemy import Column, DateTime, Float, String, Text
 from sqlalchemy.orm import declarative_base
 
@@ -28,8 +26,6 @@ class Event(Base):
     image_url = Column(String(1000))
     price = Column(String(255))
     source = Column(String(255), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def __repr__(self) -> str:
         return f"<Event(id={self.id}, title={self.title}, city={self.city})>"
@@ -52,6 +48,4 @@ class Event(Base):
             "image_url": self.image_url,
             "price": self.price,
             "source": self.source,
-            "created_at": self.created_at.isoformat() if self.created_at else None,
-            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
         }
