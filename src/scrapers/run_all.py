@@ -2,15 +2,14 @@
 
 import argparse
 import logging
-from datetime import datetime
 
 import yaml
 
 from ..database.db_handler import DatabaseHandler
 from ..utils.deduplicator import Deduplicator
 from .frankfurt_scraper import FrankfurtScraper
-from .wiesbaden_scraper import WiesbadenScraper
 from .tourismus_scraper import TourismusScraper
+from .wiesbaden_scraper import WiesbadenScraper
 
 logging.basicConfig(
     level=logging.INFO,

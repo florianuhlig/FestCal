@@ -1,8 +1,7 @@
 """Event deduplication utilities."""
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 from difflib import SequenceMatcher
-from typing import Optional
 
 from ..models.event import Event
 
@@ -67,7 +66,7 @@ class Deduplicator:
         duplicates = []
 
         for i, event1 in enumerate(events):
-            for event2 in events[i + 1:]:
+            for event2 in events[i + 1 :]:
                 if self.is_duplicate(event1, event2):
                     duplicates.append((event1, event2))
 

@@ -1,8 +1,5 @@
 """Tests for scraper modules."""
 
-import pytest
-
-from src.scrapers.base_scraper import BaseScraper
 from src.scrapers.frankfurt_scraper import FrankfurtScraper
 from src.scrapers.wiesbaden_scraper import WiesbadenScraper
 

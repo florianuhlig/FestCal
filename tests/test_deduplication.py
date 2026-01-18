@@ -2,8 +2,6 @@
 
 from datetime import datetime
 
-import pytest
-
 from src.models.event import Event
 from src.utils.deduplicator import Deduplicator
 

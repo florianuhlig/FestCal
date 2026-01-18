@@ -55,6 +55,7 @@ class BaseScraper(ABC):
     def generate_event_id(self, *args) -> str:
         """Generate a unique event ID from components."""
         import hashlib
+
         combined = "-".join(str(arg) for arg in args)
         return hashlib.sha256(combined.encode()).hexdigest()[:16]
 

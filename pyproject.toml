@@ -23,6 +23,10 @@ profile = "black"
 line_length = 100
 skip = [".git", ".venv", "venv", "__pycache__"]
 
+[tool.flake8]
+max-line-length = 100
+extend-ignore = ["E203"]
+
 [tool.pylint.messages_control]
 disable = ["C0114", "C0115", "C0116"]
 

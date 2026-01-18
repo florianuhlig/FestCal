@@ -1,9 +1,8 @@
 """Event data model."""
 
 from datetime import datetime
-from typing import Optional
 
-from sqlalchemy import Column, DateTime, Float, String, Text, create_engine
+from sqlalchemy import Column, DateTime, Float, String, Text
 from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()

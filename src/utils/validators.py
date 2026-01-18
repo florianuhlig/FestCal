@@ -1,7 +1,5 @@
 """Event validation utilities."""
 
-from datetime import datetime
-from typing import Optional
 from urllib.parse import urlparse
 
 from ..models.event import Event
@@ -79,7 +77,9 @@ def validate_event(event: Event, strict: bool = False) -> list[ValidationError]:
     if event.postal_code and strict:
         if not event.postal_code.isdigit() or len(event.postal_code) != 5:
             errors.append(
-                ValidationError("postal_code", "Invalid German postal code format (expected 5 digits)")
+                ValidationError(
+                    "postal_code", "Invalid German postal code format (expected 5 digits)"
+                )
             )
 
     return errors

@@ -1,12 +1,12 @@
 """iCalendar generation from events."""
 
 import argparse
-import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from icalendar import Calendar, Event as ICalEvent
+from icalendar import Calendar
+from icalendar import Event as ICalEvent
 
 from ..database.db_handler import DatabaseHandler
 from ..models.event import Event

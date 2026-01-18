@@ -2,8 +2,6 @@
 
 from datetime import datetime
 
-import pytest
-
 from src.calendar.generator import CalendarGenerator
 from src.models.event import Event
 

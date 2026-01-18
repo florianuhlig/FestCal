@@ -1,7 +1,6 @@
 """CalDAV server for calendar synchronization."""
 
 import logging
-import sys
 from typing import Optional
 
 logger = logging.getLogger(__name__)

@@ -7,8 +7,8 @@ import yaml
 
 from ..database.db_handler import DatabaseHandler
 from .frankfurt_scraper import FrankfurtScraper
-from .wiesbaden_scraper import WiesbadenScraper
 from .tourismus_scraper import TourismusScraper
+from .wiesbaden_scraper import WiesbadenScraper
 
 logging.basicConfig(
     level=logging.INFO,
