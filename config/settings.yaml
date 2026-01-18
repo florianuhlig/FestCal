@@ -1,0 +1,38 @@
+app:
+    name: "FestCal - Rhein-Main Event Aggregator"
+    timezone: "Europe/Berlin"
+
+database:
+    path: "data/events.db"
+
+scraping:
+    user_agent: "Mozilla/5.0 (compatible; FestCalBot/1.0)"
+    delay_between_requests: 2
+    max_retries: 3
+
+calendar:
+    export_path: "data/exports"
+    calendar_name: "Rhein-Main Events"
+    update_interval: 3600
+
+caldav:
+    enabled: false
+    host: "0.0.0.0"
+    port: 8080
+    username: "admin"
+    password_env: "CALDAV_PASSWORD"
+
+web:
+    enabled: true
+    host: "0.0.0.0"
+    port: 5000
+    debug: false
+
+filtering:
+    cities:
+        - "Frankfurt am Main"
+        - "Wiesbaden"
+        - "Mainz"
+        - "Offenbach"
+        - "Maintal"
+    max_distance_km: 30

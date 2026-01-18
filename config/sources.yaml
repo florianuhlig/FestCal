@@ -1,0 +1,21 @@
+sources:
+  - name: "Frankfurt Tourismus"
+    url: "https://www.frankfurt-tourismus.de/events"
+    type: "web"
+    scraper: "frankfurt_scraper"
+    enabled: true
+    categories: ["fest", "kultur", "musik", "sport"]
+
+  - name: "Wiesbaden Marketing"
+    url: "https://www.wiesbaden.de/veranstaltungen"
+    type: "web"
+    scraper: "wiesbaden_scraper"
+    enabled: true
+    categories: ["fest", "kultur", "markt"]
+
+  - name: "Mainz Tourismus"
+    url: "https://www.mainz-tourismus.com/events"
+    type: "web"
+    scraper: "tourismus_scraper"
+    enabled: false
+    categories: ["fest", "kultur"]

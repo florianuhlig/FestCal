@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+      - CALDAV_PASSWORD=${CALDAV_PASSWORD}
+    restart: unless-stopped
+
+  scheduler:
+    build: .
+    command: python -m src.scrapers.run_all
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - app
+    restart: "no"
