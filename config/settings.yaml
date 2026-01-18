@@ -32,7 +32,6 @@ filtering:
     cities:
         - "Frankfurt am Main"
         - "Wiesbaden"
-        - "Mainz"
         - "Offenbach"
         - "Maintal"
     max_distance_km: 30
