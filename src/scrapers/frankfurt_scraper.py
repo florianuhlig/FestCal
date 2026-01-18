@@ -17,13 +17,14 @@ logger = logging.getLogger(__name__)
 class FrankfurtScraper(BaseScraper):
     """Scraper for frankfurter-stadtevents.de events."""
 
-    def __init__(self, **kwargs):
+    def __init__(self, fetch_details: bool = True, **kwargs):
         super().__init__(
             name="Frankfurter Stadtevents",
             base_url="https://www.frankfurter-stadtevents.de",
             **kwargs,
         )
         self.events_url = f"{self.base_url}/datum.html"
+        self.fetch_details = fetch_details
 
     def scrape(self) -> list[Event]:
         """Scrape events from Frankfurter Stadtevents website."""
@@ -89,6 +90,11 @@ class FrankfurtScraper(BaseScraper):
             logger.warning(f"No valid dates found for event: {title}")
             return events
 
+        # Fetch additional details (price, description) from detail page
+        details = {}
+        if self.fetch_details and url:
+            details = self._fetch_event_details(url)
+
         # Create an Event object for each date
         for event_date in dates:
             event_id = self.generate_event_id(title, event_date.isoformat(), self.name)
@@ -96,11 +102,13 @@ class FrankfurtScraper(BaseScraper):
             event = Event(
                 id=event_id,
                 title=title,
+                description=details.get("description"),
                 start_datetime=event_date,
                 location=location,
                 city="Frankfurt am Main",
                 url=url,
                 image_url=image_url,
+                price=details.get("price"),
                 source=self.name,
             )
             events.append(event)
@@ -109,11 +117,16 @@ class FrankfurtScraper(BaseScraper):
 
     def _extract_title(self, card: Tag) -> Optional[str]:
         """Extract the event title from a card element."""
-        # Get all text, but try to exclude date/location info
-        text = card.get_text(separator=" ", strip=True)
+        # Titles are in <h3> tags within the card
+        h3_tag = card.find("h3")
+        if h3_tag:
+            title = h3_tag.get_text(strip=True)
+            # Remove "Neu" badge text if present
+            title = re.sub(r"^Neu\s+", "", title, flags=re.IGNORECASE)
+            return title if title else None
 
-        # Remove common prefixes and date patterns
-        # The title usually comes before "Termine in"
+        # Fallback: try to get text before "Termine in"
+        text = card.get_text(separator=" ", strip=True)
         if "Termine in" in text:
             text = text.split("Termine in")[0].strip()
 
@@ -157,3 +170,35 @@ class FrankfurtScraper(BaseScraper):
         if match:
             return match.group(1).strip()
         return None
+
+    def _fetch_event_details(self, url: str) -> dict:
+        """Fetch additional event details from the event detail page.
+
+        Returns a dict with 'price', 'description', 'end_datetime' if available.
+        """
+        details = {}
+
+        if not url:
+            return details
+
+        soup = self.fetch_page(url)
+        if not soup:
+            return details
+
+        # Extract price from table cell - prices are in format "23 €"
+        # Look for table cells containing € symbol
+        for td in soup.find_all("td"):
+            text = td.get_text(strip=True)
+            if "€" in text:
+                # Extract price pattern like "23 €" or "15,50 €"
+                price_match = re.search(r"(\d+(?:[,.]\d+)?)\s*€", text)
+                if price_match:
+                    details["price"] = text
+                    break
+
+        # Extract description from meta tag or content
+        meta_desc = soup.find("meta", attrs={"name": "description"})
+        if meta_desc and meta_desc.get("content"):
+            details["description"] = meta_desc["content"]
+
+        return details
