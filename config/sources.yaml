@@ -4,7 +4,7 @@ sources:
     type: "web"
     scraper: "frankfurt_scraper"
     enabled: true
-    categories: ["fest", "kultur", "musik", "sport"]
+    categories: ["fest", "kultur", "musik", "sport", "wein", "main"]
 
   - name: "Wiesbaden Marketing"
     url: "https://www.wiesbaden.de/veranstaltungen"
