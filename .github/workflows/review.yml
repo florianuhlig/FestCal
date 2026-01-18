@@ -48,6 +48,11 @@ jobs:
               run: |
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
-                  git checkout testing
-                  git merge origin/review --no-edit
+                  git fetch origin testing || true
+                  if git show-ref --verify --quiet refs/remotes/origin/testing; then
+                    git checkout testing
+                    git merge origin/review --no-edit
+                  else
+                    git checkout -b testing
+                  fi
                   git push origin testing
