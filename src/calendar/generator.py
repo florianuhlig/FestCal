@@ -71,7 +71,6 @@ class CalendarGenerator:
         if event.organizer:
             ical_event.add("organizer", event.organizer)
 
-
         ical_event.add("dtstamp", datetime.utcnow())
 
         return ical_event

@@ -64,7 +64,6 @@ def validate_event(event: Event, strict: bool = False) -> list[ValidationError]:
         except Exception:
             errors.append(ValidationError("image_url", "Invalid image URL format"))
 
-
     # Postal code validation (German format)
     if event.postal_code and strict:
         if not event.postal_code.isdigit() or len(event.postal_code) != 5:
