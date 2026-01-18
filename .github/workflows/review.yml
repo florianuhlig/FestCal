@@ -8,7 +8,6 @@ on:
             - "tests/**"
             - "requirements.txt"
             - "pyproject.toml"
-            - "config/**"
 
 permissions:
     contents: write
