@@ -36,10 +36,22 @@ class DatabaseHandler:
         """Add or update an event in the database."""
         # Fields to update (excluding id and timestamps)
         update_fields = [
-            "title", "description", "start_datetime", "end_datetime",
-            "location", "address", "city", "postal_code",
-            "latitude", "longitude", "category", "organizer",
-            "url", "image_url", "price", "source"
+            "title",
+            "description",
+            "start_datetime",
+            "end_datetime",
+            "location",
+            "address",
+            "city",
+            "postal_code",
+            "latitude",
+            "longitude",
+            "category",
+            "organizer",
+            "url",
+            "image_url",
+            "price",
+            "source",
         ]
         with self.get_session() as session:
             existing = session.query(Event).filter_by(id=event.id).first()
@@ -56,10 +68,22 @@ class DatabaseHandler:
         count = 0
         # Fields to update (excluding id and timestamps)
         update_fields = [
-            "title", "description", "start_datetime", "end_datetime",
-            "location", "address", "city", "postal_code",
-            "latitude", "longitude", "category", "organizer",
-            "url", "image_url", "price", "source"
+            "title",
+            "description",
+            "start_datetime",
+            "end_datetime",
+            "location",
+            "address",
+            "city",
+            "postal_code",
+            "latitude",
+            "longitude",
+            "category",
+            "organizer",
+            "url",
+            "image_url",
+            "price",
+            "source",
         ]
         with self.get_session() as session:
             for event in events:
