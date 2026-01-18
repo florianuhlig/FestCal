@@ -30,7 +30,8 @@ class TestFullPipeline:
         handler.init_db()
         yield handler
 
-        # Cleanup
+        # Cleanup - close connection before deleting (required on Windows)
+        handler.close()
         Path(db_path).unlink(missing_ok=True)
 
     @pytest.fixture
@@ -209,6 +210,8 @@ class TestDatabaseStats:
         handler.init_db()
         yield handler
 
+        # Cleanup - close connection before deleting (required on Windows)
+        handler.close()
         Path(db_path).unlink(missing_ok=True)
 
     @pytest.fixture

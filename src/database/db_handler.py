@@ -32,6 +32,10 @@ class DatabaseHandler:
         """Get a new database session."""
         return self.SessionLocal()
 
+    def close(self) -> None:
+        """Close the database connection."""
+        self.engine.dispose()
+
     def add_event(self, event: Event) -> None:
         """Add or update an event in the database."""
         # Fields to update (excluding id and timestamps)
