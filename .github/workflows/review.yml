@@ -3,8 +3,6 @@ name: Review
 on:
     push:
         branches: [review]
-    pull_request:
-        branches: [review]
 
 jobs:
     lint:
@@ -36,3 +34,20 @@ jobs:
 
             - name: Lint with pylint
               run: pylint src/ --exit-zero --max-line-length=100
+
+    merge-to-testing:
+        name: Merge to Testing
+        needs: lint
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Merge review into testing
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git checkout testing
+                  git merge origin/review --no-edit
+                  git push origin testing
